@@ -1,4 +1,278 @@
-# Tutorial: Designing a Specs-Driven Multi-Agent Copilot Workflow in VS Code
+# Tutorial Series: Building a Specs-Driven Copilot Workflow in VS Code
+
+This repository now uses a tutorial-series structure instead of one very large walkthrough.
+
+That change is deliberate.
+
+The previous version of this material tried to teach instructions, prompts, skills, agents, hooks, and MCP in one continuous session. That is realistic from an architecture perspective, but it is too much to absorb well in one pass.
+
+This new version keeps the same end goal and the same Task Management API scenario, but splits the learning path into four sessions. Each session introduces one new layer of Copilot customization, ends with a usable workflow, and prepares the student for the next one.
+
+The design principle is simple:
+
+- start with the smallest useful layer,
+- verify that it works,
+- then add one new source of power,
+- and only then move to the next abstraction.
+
+---
+
+## What This Series Builds
+
+Across the four tutorials, the student builds a realistic Copilot customization stack for a future Task Management REST API built with Node.js and TypeScript.
+
+By the end of the full series, the student will understand how to design and use:
+
+- repository-wide instructions,
+- file-targeted instructions,
+- reusable prompt files,
+- skills for structured capabilities,
+- custom agents with specialized roles,
+- hooks for deterministic automation,
+- and MCP for external tools and data.
+
+The target architecture still looks like this by the end:
+
+```text
+.github/
+  copilot-instructions.md
+  instructions/
+    spec-authoring.instructions.md
+    backend-sdd.instructions.md
+    backend-tests.instructions.md
+  prompts/
+    implement-spec.prompt.md
+    check-spec-coverage.prompt.md
+  skills/
+    spec-validation/
+      SKILL.md
+      report-template.md
+  agents/
+    spec-reader.agent.md
+    implementer.agent.md
+    lead-architect.agent.md
+  hooks/
+    sdd-post-edit.json
+.vscode/
+  mcp.json
+scripts/
+  check-spec-tags.mjs
+docs/
+  specs/
+    task-creation.md
+```
+
+At the start of the series, none of those files exist yet. The repository intentionally begins with tutorial documents only.
+
+---
+
+## Why The Series Is Split
+
+The split is not cosmetic. It reflects real differences in abstraction level.
+
+- Instructions teach standing rules.
+- Prompt files teach reusable task entry points.
+- Skills teach reusable capabilities.
+- Agents teach role separation and orchestration.
+- Hooks teach deterministic automation.
+- MCP teaches external integration.
+
+If you teach all of that at once, the student can copy files without developing any judgment about when one primitive is better than another.
+
+This series is designed to teach that judgment.
+
+---
+
+## The Four Tutorials
+
+### Part 1: Foundations
+
+See [tutorial-1-foundations.md](./tutorial-1-foundations.md).
+
+This part introduces the lowest-friction, highest-leverage customizations:
+
+- `.github/copilot-instructions.md`
+- `.github/instructions/*.instructions.md`
+- a first reusable prompt file
+
+What this part deliberately excludes:
+
+- skills
+- agents
+- hooks
+- MCP
+
+What the student has at the end:
+
+- a workspace where Copilot already behaves differently because the project rules are explicit,
+- and a reusable entry point for spec-driven implementation.
+
+### Part 2: Reusable Workflows And Roles
+
+See [tutorial-2-skills-and-agents.md](./tutorial-2-skills-and-agents.md).
+
+This part introduces the next two abstractions that usually get confused with prompts:
+
+- skills for structured reusable capabilities,
+- custom agents for specialized roles and tool boundaries.
+
+What this part deliberately excludes:
+
+- hooks
+- MCP
+
+What the student has at the end:
+
+- a reusable validation skill,
+- a multi-agent workflow built around `SpecReader`, `Implementer`, and `LeadArchitect`,
+- and a clear mental model for prompt vs skill vs agent.
+
+### Part 3: Guardrails And Full Local Execution
+
+See [tutorial-3-hooks-and-local-workflow.md](./tutorial-3-hooks-and-local-workflow.md).
+
+This part introduces deterministic automation and end-to-end simulation:
+
+- workspace hooks in `.github/hooks/*.json`
+- a post-edit SDD traceability check
+- a full local run from ambiguous spec to clarified spec to implementation and validation
+
+What this part deliberately excludes:
+
+- MCP
+
+What the student has at the end:
+
+- a locally complete workflow with instructions, prompts, skills, agents, and hooks all working together.
+
+### Part 4: External Tools And Data With MCP
+
+See [tutorial-4-mcp-integration.md](./tutorial-4-mcp-integration.md).
+
+This part introduces MCP as a user of VS Code, not as an extension author:
+
+- what MCP is,
+- when it belongs in the architecture,
+- how to install or configure an MCP server,
+- how MCP tools become available in chat,
+- and how to connect those tools to the existing workflow.
+
+What this part deliberately excludes:
+
+- building a custom MCP server,
+- writing a VS Code extension that registers one,
+- packaging a plugin that bundles MCP,
+- turning the tutorial into an extension-development course.
+
+What the student has at the end:
+
+- the same local workflow as Part 3,
+- plus one external integration layer available through MCP.
+
+### A note about “an extension with an MCP”
+
+If you want a visible marketplace-style MCP example, Part 4 includes that perspective. The main teaching path still treats MCP as something the student installs or configures in VS Code and then uses from chat.
+
+That is the right complexity level for this series.
+
+---
+
+## How To Use The Series
+
+This series uses a hybrid continuity model.
+
+Each tutorial is designed so it can be read on its own, but each one also extends the previous part.
+
+Each part therefore starts with a “Starting point” section that explains two valid paths:
+
+1. continue from the previous part,
+2. or start from a prepared baseline state.
+
+This makes the series practical for:
+
+- self-paced learning,
+- multi-session workshops,
+- classroom teaching,
+- and revisiting the material after a break.
+
+---
+
+## Suggested Teaching Order
+
+Use the parts in this order:
+
+1. [tutorial-1-foundations.md](./tutorial-1-foundations.md)
+2. [tutorial-2-skills-and-agents.md](./tutorial-2-skills-and-agents.md)
+3. [tutorial-3-hooks-and-local-workflow.md](./tutorial-3-hooks-and-local-workflow.md)
+4. [tutorial-4-mcp-integration.md](./tutorial-4-mcp-integration.md)
+
+Do not jump to Part 4 first.
+
+MCP makes the most sense only after the student already understands local customizations. Otherwise MCP looks like just another configuration file instead of what it really is: the bridge to external tools and data.
+
+---
+
+## Stable Vs Preview In This Series
+
+The series intentionally separates stable material from preview-heavy material.
+
+| Topic | Status | Where it appears |
+| --- | --- | --- |
+| `copilot-instructions.md` | Stable | Part 1 |
+| `.instructions.md` with `applyTo` | Stable | Part 1 |
+| `.prompt.md` files | Stable | Part 1 |
+| Skills in `.github/skills/` | Stable | Part 2 |
+| Custom agents in `.github/agents/` | Stable | Part 2 |
+| Handoffs in custom agents | Stable | Part 2 |
+| Autonomous subagent delegation | Model-driven | Part 2 |
+| Workspace hooks in `.github/hooks/*.json` | Preview | Part 3 |
+| Agent-scoped hooks in agent frontmatter | Preview | Mentioned as a contrast in Part 3 |
+| MCP as installed/configured server usage | Stable | Part 4 |
+| Agent plugins | Preview | Mentioned only as optional context in Part 4 |
+| Extension-level MCP registration | Advanced | Out of scope for this series |
+
+---
+
+## What Changed From The Previous Tutorial
+
+The earlier version of this repository tried to show the entire layered architecture in one file.
+
+This new structure keeps the same architecture, but distributes it across sessions so the student can actually internalize the reasoning.
+
+The key editorial changes are:
+
+- the root tutorial is now the roadmap,
+- detailed steps live in part-specific files,
+- MCP is included later and at the correct complexity level,
+- and each part has a clear stopping point.
+
+---
+
+## Official Documentation This Series Tracks
+
+If behavior changes in a future VS Code release, use these references first:
+
+- VS Code Copilot customization overview: <https://code.visualstudio.com/docs/copilot/customization/overview>
+- Custom instructions: <https://code.visualstudio.com/docs/copilot/customization/custom-instructions>
+- Prompt files: <https://code.visualstudio.com/docs/copilot/customization/prompt-files>
+- Agent skills: <https://code.visualstudio.com/docs/copilot/customization/agent-skills>
+- Custom agents: <https://code.visualstudio.com/docs/copilot/customization/custom-agents>
+- Subagents: <https://code.visualstudio.com/docs/copilot/agents/subagents>
+- Hooks: <https://code.visualstudio.com/docs/copilot/customization/hooks>
+- MCP servers: <https://code.visualstudio.com/docs/copilot/customization/mcp-servers>
+- Agent plugins: <https://code.visualstudio.com/docs/copilot/customization/agent-plugins>
+- Tools with agents: <https://code.visualstudio.com/docs/copilot/agents/agent-tools>
+- Customize AI for your project guide: <https://code.visualstudio.com/docs/copilot/guides/customize-copilot-guide>
+
+---
+
+## Start Here
+
+Begin with [tutorial-1-foundations.md](./tutorial-1-foundations.md).
+
+If you already understand instructions and prompt files and want to jump ahead, start with [tutorial-2-skills-and-agents.md](./tutorial-2-skills-and-agents.md).
+
+If your specific goal is “how do I extend this workflow with an MCP server?”, go to [tutorial-4-mcp-integration.md](./tutorial-4-mcp-integration.md), but only after you understand the local workflow from Parts 1 through 3.# Tutorial: Designing a Specs-Driven Multi-Agent Copilot Workflow in VS Code
 
 This tutorial is intentionally about design before implementation.
 
