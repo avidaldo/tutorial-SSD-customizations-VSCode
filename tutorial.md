@@ -506,7 +506,13 @@ If your Copilot version supports it, you can ask VS Code to generate an initial 
 /init
 ```
 
-If you use `/init`, treat the generated file as a draft. Review it and tighten it manually. Generator output is a starting point, not the final standard.
+Some Copilot builds will then ask what the repository is about. If that happens, you can paste this description:
+
+```text
+This repository is a Node.js and TypeScript task management REST API that follows specs-driven development. Files in docs/specs/ are the source of truth for feature behavior. Keep HTTP routing, validation, and business logic separated. Use Jest for unit tests, and add @spec <requirement-id> JSDoc tags where code directly fulfills a requirement.
+```
+
+If you use `/init`, treat the generated file as a draft. Review it against the explicit example above, then tighten it manually. Generator output is a starting point, not the final standard.
 
 #### Why not use `AGENTS.md` here?
 

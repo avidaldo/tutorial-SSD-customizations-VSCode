@@ -128,7 +128,13 @@ If your Copilot build supports it, you can ask VS Code to generate an initial re
 /init
 ```
 
-If you use `/init`, treat the generated result as a draft. Tighten it manually.
+Copilot builds will then ask what the repository is about. You can paste this description:
+
+```text
+This repository is a Node.js and TypeScript task management REST API that follows specs-driven development. Files in docs/specs/ are the source of truth for feature behavior. Keep HTTP routing, validation, and business logic separated. Use Jest for unit tests, and add @spec <requirement-id> JSDoc tags where code directly fulfills a requirement.
+```
+
+If you use `/init`, treat the generated result as a draft. The explicit file shown above remains the canonical tutorial path. Compare the generated output with it, then tighten it manually before continuing.
 
 ### Why this file exists
 
